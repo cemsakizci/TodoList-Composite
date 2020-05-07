@@ -55,14 +55,18 @@ public class Note extends NoteComponent {
 	}
 
 	public void changeToIncomplete() {
+		this.state.changeToIncomplete(this);
 	}
 
 	public void changeToCancelled() {
+		this.state.changeToCancelled(this);
 	}
 
 	public void changeToPermanent() {
+		this.state.changeToPermanent(this);
 	}
 
 	public void changeToCompleted() {
+		this.state.changeToCompleted(this);
 	}
 }
