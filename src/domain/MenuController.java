@@ -1,8 +1,11 @@
 package domain;
 
+import java.util.ArrayList;
+
 public class MenuController {
 	private NoteComponent currentComponent;
 	private NoteComponent rootComponent;
+	private NoteComponent previousComponent;	
 	private JSONManager jsonManager;
 	private NoteComponentGenerator noteComponentGenerator;
 	private int childCounter;
@@ -13,6 +16,8 @@ public class MenuController {
 		this.noteComponentGenerator = new NoteComponentGenerator();
 		this.rootComponent = this.noteComponentGenerator.createNoteGroup("MyNotes");
 		this.currentComponent = this.rootComponent;
+		this.previousComponent = this.rootComponent;
+		
 	}
 	
 	public NoteComponent getCurrentComponent() {
@@ -55,6 +60,53 @@ public class MenuController {
 		this.currentComponent.addNoteComponent(noteComponentGenerator.createNoteGroup(title));
 		return true;
 	}
+	
+	public int getCurrentNoteType() {
+		try {
+			this.currentComponent.getChildren();
+			return 0;
+		}catch(Exception e) {
+			return 1;
+		}
+	}
+	
+	public String getCurrentNoteGroupDetails(){
+		
+		return this.currentComponent.getNodeDetails();
+	}
+	
+	public String getCurrentNoteLeafDetails(){
+		
+		return this.currentComponent.getNodeDetails();
+	}
+		
+	public boolean goToNote(int id) throws OperationIsNotAllowedException {
+		NoteComponent newComponent = this.currentComponent.findChild(id); 
+		if(newComponent == null) {
+			this.previousComponent = this.currentComponent;
+			this.currentComponent = newComponent;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean goToParent() {
+		if(this.previousComponent == this.rootComponent) {
+			return false;
+		}else {
+			NoteComponent temp = this.currentComponent;
+			this.previousComponent = this.currentComponent;
+			this.currentComponent = temp;
+			return true;
+		}
+	}
+	
+	public boolean changeNoteState(int state) {
+		return true;
+	}
+	
+	
 
 
 }
