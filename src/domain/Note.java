@@ -56,19 +56,19 @@ public class Note extends NoteComponent {
 		this.date = date;
 	}
 
-	public void changeToIncomplete() {
+	public void changeToIncomplete() throws StateTransitionException {
 		this.state.changeToIncomplete(this);
 	}
 
-	public void changeToCancelled() {
+	public void changeToCancelled() throws StateTransitionException {
 		this.state.changeToCancelled(this);
 	}
 
-	public void changeToPermanent() {
+	public void changeToPermanent() throws StateTransitionException {
 		this.state.changeToPermanent(this);
 	}
 
-	public void changeToCompleted() {
+	public void changeToCompleted() throws StateTransitionException {
 		this.state.changeToCompleted(this);
 	}
 }

@@ -48,10 +48,10 @@ public abstract class NoteComponent {
 	/**
 	 * change the current state to the desired state=
 	 */
-	public abstract void changeToIncomplete() throws OperationIsNotAllowedException;
-	public abstract void changeToCancelled() throws OperationIsNotAllowedException;
-	public abstract void changeToPermanent() throws OperationIsNotAllowedException;
-	public abstract void changeToCompleted() throws OperationIsNotAllowedException;
+	public abstract void changeToIncomplete() throws OperationIsNotAllowedException, StateTransitionException;
+	public abstract void changeToCancelled() throws OperationIsNotAllowedException, StateTransitionException;
+	public abstract void changeToPermanent() throws OperationIsNotAllowedException, StateTransitionException;
+	public abstract void changeToCompleted() throws OperationIsNotAllowedException, StateTransitionException;
 	
 	public int getId() {
 		return this.id;

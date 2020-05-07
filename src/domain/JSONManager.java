@@ -29,10 +29,9 @@ public class JSONManager {
 		try {
 			//if not throws error means its note group
 			ArrayList<NoteComponent> noteChildren = rootNote.getChildren();
-			note.put("Note-Group-Title", rootNote.getTitle());
 			for(NoteComponent childNote : noteChildren) {
 				JSONObject childNoteJSONObject = recursiveJSONExport(childNote);
-				note.put(rootNote.getTitle(), childNoteJSONObject);
+				note.put(childNote.getTitle(), childNoteJSONObject);
 			}
 			
 		} catch(Exception e) {

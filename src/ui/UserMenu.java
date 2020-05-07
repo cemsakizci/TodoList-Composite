@@ -127,7 +127,7 @@ public class UserMenu {
 					return UserMenuReferences.Messages.CREATE_FAIL
 							+ "\n" + UserMenuReferences.Messages.UNRECOGNIZED_TOKEN;
 				}
-				boolean result = this.controller.createNode(title, content, status);
+				boolean result = this.controller.createNote(title, content, status);
 				if(result){
 					return UserMenuReferences.Messages.CREATE_SUCCESS.toString();
 				}else{
@@ -146,7 +146,7 @@ public class UserMenu {
 			if(userInput == 2){return UserMenuReferences.Messages.CANCEL_MESSAGE.toString();}
 			
 			try{
-				boolean result = this.controller.createNodeGroup(title);
+				boolean result = this.controller.createNoteGroup(title);
 				if(result){
 					return UserMenuReferences.Messages.CREATE_SUCCESS.toString();
 				}else{
@@ -165,49 +165,12 @@ public class UserMenu {
 	 * Displays existing note and note groups
 	 * @return operationMessage
 	 */
+	
 	private String goToNotes(){
-		try{
-		ArrayList<NoteComponent> currentChildren;
-		NoteComponent currentChild;
-		String currentNoteMenu = "";
 		
-		currentChildren = controller.getCurrentComponent();
+		return "zAAAAAAAAAAAAAAAA";
 		
-		if(currentChildren == null){
-			controller.setResetTree();
-			return UserMenuReferences.Messages.GO_TO_NOTES_SUCCESS.toString();
-			// It is a note
-		}else if(currentChildren.isEmpty()){
-			controller.setResetTree();
-			return UserMenuReferences.Messages.GO_TO_NOTES_SUCCESS.toString();
-			// It is an empty note group
-		}else{
-			String currentMenuItem = controller.nextMenuItem();
-			while(currentMenuItem != UserMenuReferences.ErrorType.NULL_TOKEN.toString()){
-				currentNoteMenu += currentMenuItem + "\n";
-				currentMenuItem = controller.nextMenuItem();
-			}
-			currentNoteMenu += "(0) Cancel";
-			System.out.println(currentNoteMenu);
-			int userInput = getUserInput(0); // Gets input as int without any limit
-			while(userInput == 0 || controller.getIDList().indexOf(userInput) == -1){
-				if(userInput == 0){
-					if(this.cancel()){return UserMenuReferences.Messages.CANCEL_MESSAGE.toString();}
-				}else{
-					System.out.println(UserMenuReferences.Messages.INCORRECT_INPUT);
-				}
-				
-				System.out.println(currentNoteMenu);
-				userInput = getUserInput(0);
-			}
-			
-			controller.setCurrentChild(userInput);
-			return this.goToNotes();
-		}
-		}catch(Exception e){
-			return UserMenuReferences.Messages.GO_TO_NOTES_FAIL.toString();
-		}
-	}
+	} 
 	
 	/**
 	 * Exports existing note and note groups into a JSON File
