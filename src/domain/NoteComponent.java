@@ -6,6 +6,8 @@ public abstract class NoteComponent {
 	private int id;
 	private String title;
 	
+	public NoteComponent() {}
+	
 	public NoteComponent(int id, String title) {
 		setId(id);
 		setTitle(title);

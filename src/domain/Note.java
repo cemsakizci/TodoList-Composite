@@ -7,6 +7,8 @@ public class Note extends NoteComponent {
 	private Date date;
 	private INoteState state;
 	
+	public Note() {}
+	
 	public Note(int id, String title, String content, INoteState state, Date date) {
 		super(id, title);
 		setContent(content);

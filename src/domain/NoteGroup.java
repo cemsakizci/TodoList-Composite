@@ -7,9 +7,13 @@ public class NoteGroup extends NoteComponent {
 	
 	public NoteGroup(int id, String title) {
 		super(id, title);
-		noteComponentList = new ArrayList<NoteComponent>();
+		this.noteComponentList = new ArrayList<NoteComponent>();
 	}
 	
+	public NoteGroup() {
+		this.noteComponentList = new ArrayList<NoteComponent>();
+	}
+
 	public ArrayList<NoteComponent> getChildren() {
 		return this.noteComponentList;
 	}
@@ -25,7 +29,7 @@ public class NoteGroup extends NoteComponent {
 	public String getNodeDetails() {
 		String s = "";
 		for (int i = 0; i < noteComponentList.size(); i++)
-			s += '(' + this.getId() + ") " + this.getTitle() + '\n';
+			s += "(" + this.getId() + ") " + this.getTitle() + "\n";
 		
 		return s;
 	}
