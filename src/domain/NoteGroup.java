@@ -21,15 +21,15 @@ public class NoteGroup extends NoteComponent {
 	public NoteComponent findChild(int id) {
 		for (int i = 0; i < noteComponentList.size(); i++)
 			if (noteComponentList.get(i).getId() == id)
-				return noteComponentList.get(id);
+				return noteComponentList.get(i);
 		
 		return null;
 	}
 	
 	public String getNodeDetails() {
 		String s = "";
-		for (int i = 0; i < noteComponentList.size(); i++)
-			s += "(" + this.getId() + ") " + this.getTitle() + "\n";
+		for (NoteComponent component: noteComponentList)
+			s += "(" + component.getId() + ") " + component.getTitle() + "\n";
 		
 		return s;
 	}

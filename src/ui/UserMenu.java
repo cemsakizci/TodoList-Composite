@@ -149,7 +149,11 @@ public class UserMenu {
 				return UserMenuReferences.Messages.CREATE_FAIL.toString() 
 						+ "\n" + UserMenuReferences.Messages.UNRECOGNIZED_ERROR.toString();
 			}
-		}else{
+		
+		}else if(userInput == UserMenuReferences.SpecialSelections.BACK_SIGN.getValue()){
+			return "";
+		}
+		else{
 			return UserMenuReferences.Messages.INCONSISTENT_SELECTION.toString();
 		}
 	}
@@ -160,53 +164,46 @@ public class UserMenu {
 	 */
 	private String goToNotes(){
 		
-		//int type = controller.getCurrentType();
-		int type = 1;
+		int type = controller.getCurrentNoteType();
 		
-		if(type == 0){
-			//String details = controller.getDetails();
-			String details = "Title: This is title, Content: This is content";
+		if(type == 1){ // note
+			String details = controller.getCurrentNoteLeafDetails();
 			System.out.println(details);
 			System.out.println(UserMenuReferences.Menus.NOTE_MENU);
 			int limit = UserMenuReferences.Menus.NOTE_MENU.getLimit();
 			int userInput = getUserInput(UserMenuReferences.Menus.NOTE_MENU, UserMenuReferences.SpecialSelections.EXIT_SIGN.getValue(), limit);
 			if(userInput == 1){
-				return UserMenuReferences.Messages.CHANGE_SUCCESS.toString(); // -> Sil
-				/*
-				if(controller.changetoincomplete){
+				if(controller.changeNoteState(0)){
 					System.out.println(UserMenuReferences.Messages.CHANGE_SUCCESS);
 				}else{
 					System.out.println(UserMenuReferences.Messages.CHANGE_FAIL);
-				}*/
+				}
+				return this.goToNotes();
 			}else if (userInput == 2){
-				return UserMenuReferences.Messages.CHANGE_SUCCESS.toString(); // -> Sil
-				/*
-				if(controller.changetocomplete){
+				if(controller.changeNoteState(1)){
 					System.out.println(UserMenuReferences.Messages.CHANGE_SUCCESS);
 				}else{
 					System.out.println(UserMenuReferences.Messages.CHANGE_FAIL);
-				}*/
+				}
+				return this.goToNotes();
 			}else if (userInput == 3){
-				return UserMenuReferences.Messages.CHANGE_SUCCESS.toString(); // -> Sil
-				/*
-				if(controller.changetocancelled){
+				if(controller.changeNoteState(2)){
 					System.out.println(UserMenuReferences.Messages.CHANGE_SUCCESS);
 				}else{
 					System.out.println(UserMenuReferences.Messages.CHANGE_FAIL);
-				}*/
+				}
+				return this.goToNotes();
 			}else if(userInput == 4){
-				return UserMenuReferences.Messages.CHANGE_SUCCESS.toString(); // -> Sil
-				/*
-				if(controller.changetopermanent){
+				if(controller.changeNoteState(3)){
 					System.out.println(UserMenuReferences.Messages.CHANGE_SUCCESS);
 				}else{
 					System.out.println(UserMenuReferences.Messages.CHANGE_FAIL);
-				}*/
+				}
+				return this.goToNotes();
 			} else if(userInput == UserMenuReferences.SpecialSelections.BACK_SIGN.getValue()){
-				/*
-				if(controller.goback == false){
+				if(controller.goToParent() == false){
 					System.out.println(UserMenuReferences.Messages.BACK_FAIL);
-				}*/
+				}
 				return this.goToNotes();
 			} else if(userInput == UserMenuReferences.SpecialSelections.EXIT_SIGN.getValue()){
 				if(this.cancel()){
@@ -215,9 +212,8 @@ public class UserMenu {
 				return this.goToNotes();
 			}
 			else{return UserMenuReferences.Messages.UNRECOGNIZED_ERROR.toString();}
-		} else if (type == 1){
-			//String currentMenu = controller.getCurrentMenu();
-			String currentMenu = "";
+		} else if (type == 0){ // note group
+			String currentMenu = controller.getCurrentNoteGroupDetails();
 			if(currentMenu == null || currentMenu == ""){
 				System.out.println(UserMenuReferences.Messages.EMPTY_GROUP);
 			}
@@ -230,29 +226,30 @@ public class UserMenu {
 				if(resultMessage != null || resultMessage != ""){
 					System.out.println(resultMessage);
 				}
-				this.goToNotes();
+				return this.goToNotes();
 			} else if(userInput == UserMenuReferences.SpecialSelections.BACK_SIGN.getValue()){
 				if(isClearActive){this.clear();}
+				
+				if(controller.goToParent() == false){
+					System.out.println(UserMenuReferences.Messages.BACK_FAIL);
+				}
 				return this.goToNotes();
-				/*
-				if(controller.goback()){
-					return this.goToNotes();
-				}else{
-					return UserMenuReferences.Messages.BACK_FAIL.toString();
-				}*/
 			} else if(userInput == UserMenuReferences.SpecialSelections.EXIT_SIGN.getValue()){
-				System.out.println("Do you want to exit?");
-				System.out.println(UserMenuReferences.Menus.CONFIRM_MENU);
-				int limit =  UserMenuReferences.Menus.CONFIRM_MENU.getLimit();
-				userInput = getUserInput(UserMenuReferences.Menus.CONFIRM_MENU, 1, limit);
-				if(userInput == 1){return UserMenuReferences.Messages.CHANGE_SUCCESS.toString();}
-				else{return this.goToNotes();}
+				if(this.cancel()){
+					return UserMenuReferences.Messages.CANCEL_MESSAGE.toString();
+				} else{
+					return this.goToNotes();
+				}
+				
 			}
 			
-			/*
-			if(controller.find(userInput) == false){
+			try{
+				if(controller.goToNote(userInput) == false){
+					System.out.println(UserMenuReferences.Messages.INCORRECT_INPUT);
+				}
+			}catch(Exception e){
 				System.out.println(UserMenuReferences.Messages.INCORRECT_INPUT);
-			}*/
+			}
 			
 			return this.goToNotes();
 			
@@ -337,6 +334,9 @@ public class UserMenu {
 		switch(userInput){
 			case 1:
 				message = this.goToNotes();
+				if(controller.goToRoot() == false){
+					message = UserMenuReferences.Messages.UNRECOGNIZED_ERROR.toString();
+				};
 				break;
 			case 2:
 				message = this.exportJSON();
