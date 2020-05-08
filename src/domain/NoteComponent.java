@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public abstract class NoteComponent {
 	private int id;
@@ -52,6 +53,14 @@ public abstract class NoteComponent {
 	public abstract void changeToCancelled() throws OperationIsNotAllowedException, StateTransitionException;
 	public abstract void changeToPermanent() throws OperationIsNotAllowedException, StateTransitionException;
 	public abstract void changeToCompleted() throws OperationIsNotAllowedException, StateTransitionException;
+	
+	/**
+	 * define method for notes, throws exception for a note group
+	 * @throws OperationIsNotAllowedException
+	 */
+	public abstract String getContent() throws OperationIsNotAllowedException;
+	public abstract Date getDate() throws OperationIsNotAllowedException;
+	public abstract INoteState getState() throws OperationIsNotAllowedException;
 	
 	public int getId() {
 		return this.id;

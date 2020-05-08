@@ -44,6 +44,10 @@ public class Note extends NoteComponent {
 		this.content = content;
 	}
 	
+	public INoteState getState() {
+		return this.state;
+	}
+	
 	public void setState(INoteState state) {
 		this.state = state;
 	}

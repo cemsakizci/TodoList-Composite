@@ -22,4 +22,7 @@ public class IncompleteState implements INoteState {
 		note.setState(new CompletedState());
 	}
 	
+	public String toString() {
+		return "Incomplete";
+	}
 }

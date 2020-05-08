@@ -22,4 +22,7 @@ public class CancelledState implements INoteState {
 		throw new StateTransitionException("The note cannot be changed from Cancelled to Completed state");
 	}
 	
+	public String toString() {
+		return "Cancelled";
+	}
 }

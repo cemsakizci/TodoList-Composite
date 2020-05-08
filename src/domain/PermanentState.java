@@ -22,4 +22,7 @@ public class PermanentState implements INoteState {
 		System.out.println("The note cannot be changed from Permanent to Completed state");
 	}
 	
+	public String toString() {
+		return "Permanent";
+	}
 }
