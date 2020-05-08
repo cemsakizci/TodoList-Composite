@@ -107,6 +107,23 @@ public class MenuController {
 	}
 	
 	public boolean changeNoteState(int state) {
+		try {
+			switch(state) {
+			case 0:
+				this.currentComponent.changeToIncomplete();
+				break;
+			case 1:
+				this.currentComponent.changeToCompleted();
+				break;
+			case 2:
+				this.currentComponent.changeToCancelled();
+				break;
+			default:
+				this.currentComponent.changeToPermanent();
+			}
+		} catch (Exception e) {
+			return false;
+		}
 		return true;
 	}
 	

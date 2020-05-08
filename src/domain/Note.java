@@ -29,7 +29,7 @@ public class Note extends NoteComponent {
 	}
 	
 	public String getNodeDetails() {
-		return "Content: " + this.getContent() + "\nDate: " + this.getDate();
+		return "Content: " + this.getContent() + "\nState: " + this.getState();
 	}
 	
 	public void deleteChildren() {
