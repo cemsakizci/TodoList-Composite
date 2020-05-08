@@ -33,7 +33,11 @@ public class UserMenuReferences{
 		RESET_FAIL,
 		RESET_SUCCESS,
 		CANCEL_MESSAGE,
-		EXIT_MESSAGE;
+		EXIT_MESSAGE,
+		BACK_FAIL,
+		CHANGE_FAIL,
+		CHANGE_SUCCESS,
+		EMPTY_GROUP;
 		
 		
 		String message_contents[] = {
@@ -51,7 +55,11 @@ public class UserMenuReferences{
 		"System Message::Error | Reset Failed",
 		"System Message::Reset is Successfull!",
 		"System Message::Operation Cancelled!",
-		"System Message::Program Terminated!"};
+		"System Message::Program Terminated!",
+		"System Message::Error | System cannot go back!",
+		"System Message::Error | This transmition is invalid for current state!",
+		"System Message::Transmition is Successfull!",
+		"System Message::This note group is empty!"};
 		
 		@Override
 		public String toString(){
@@ -66,26 +74,38 @@ public class UserMenuReferences{
 		MAIN_MENU,
 		CREATE_MENU,
 		STATUS_MENU,
-		CONFIRM_MENU;
+		CONFIRM_MENU,
+		NOTE_MENU,
+		NOTEGROUP_MENU;
 		String menu_contents[] = {
-				"1. Create..\n"
-				+ "2. Go to existing notes\n"
-				+ "3. Export notes as JSON\n"
-				+ "4. Reset all notes\n"
-				+ "5. Exit",
+				"1. Open notes\n"
+				+ "2. Export notes as JSON\n"
+				+ "3. Reset all notes\n"
+				+ "4. Exit",
 				
 				"1. Note\n"
 				+ "2. Note Group\n"
-				+ "3. Cancel",
+				+ "<  Go Back",
 				
 				"1. Incomplete\n"
 				+ "2. Permanent",
 						
 				"1. Confirm\n"
-				+ "2. Cancel"
+				+ "2. Cancel",
+				
+				"1. Change to Incomplete\n"
+				+ "2. Change to Completed\n"
+				+ "3. Change to Cancelled\n"
+				+ "4. Change to Permanent\n"
+				+ "<  Go Back\n"
+				+ "-  Go to Main Menu",
+				
+				"+  Create\n"
+				+ "<  Go Back\n"
+				+ "-  Go to Main Menu"
 		};
 		int menu_limits[] = {
-				5, 3, 2, 2
+				4, 2, 2, 2, 4, 0
 		};
 		@Override
 		public String toString(){
@@ -97,6 +117,16 @@ public class UserMenuReferences{
 		 */
 		public int getLimit(){
 			return menu_limits[ordinal()];
+		}
+	}
+	
+	public enum SpecialSelections{
+		CREATE_SIGN,
+		EXIT_SIGN,
+		BACK_SIGN;
+		int value_list[] = {-4, -3, -2}; 
+		public int getValue(){
+			return value_list[ordinal()];
 		}
 	}
 

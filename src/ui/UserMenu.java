@@ -1,5 +1,4 @@
 package ui;
-import java.util.ArrayList;
 import java.util.Scanner;
 import domain.MenuController;
 
@@ -45,8 +44,7 @@ public class UserMenu {
 		System.out.println("Do you want to cancel?");
 		System.out.println(UserMenuReferences.Menus.CONFIRM_MENU);
 		int limit = UserMenuReferences.Menus.CONFIRM_MENU.getLimit();
-		int userInput = getUserInput(limit);
-		if(userInput == -1){userInput = getValidUserInput(UserMenuReferences.Menus.CONFIRM_MENU, limit);}
+		int userInput = getUserInput(UserMenuReferences.Menus.CONFIRM_MENU, 1, limit);
 		if(userInput == 1){return true;}
 		return false;
 		
@@ -61,25 +59,23 @@ public class UserMenu {
 		if (isClearActive){this.clear();}
 		int limit = UserMenuReferences.Menus.CREATE_MENU.getLimit();
 		System.out.println(UserMenuReferences.Menus.CREATE_MENU);
-		int userInput = getUserInput(limit);
-		if(userInput == -1){userInput = this.getValidUserInput(UserMenuReferences.Menus.CREATE_MENU, limit);}
-		else if(userInput == 3){
-			if(this.cancel()){return UserMenuReferences.Messages.CANCEL_MESSAGE.toString();}
-			return this.create();
+		int userInput = getUserInput(UserMenuReferences.Menus.CREATE_MENU, UserMenuReferences.SpecialSelections.BACK_SIGN.getValue(), limit);
+		if(userInput == UserMenuReferences.SpecialSelections.BACK_SIGN.getValue()){
+			return "";
 		}
 		if (isClearActive){this.clear();}
 		String title;
 		System.out.print("Title: ");
-		title = getUserInput();
+		title = getUserInputString();
 		while(title == UserMenuReferences.ErrorType.UNRECOGNISED_TOKEN.toString()){
 			System.out.println(UserMenuReferences.Messages.UNRECOGNIZED_TOKEN);
 			System.out.print("Title: ");
-			title = getUserInput();
+			title = getUserInputString();
 		}
 		while(title == UserMenuReferences.ErrorType.NULL_TOKEN.toString()){
 			System.out.println(UserMenuReferences.Messages.NULL_TOKEN);
 			System.out.print("Title: ");
-			title = getUserInput();
+			title = getUserInputString();
 		}
 		
 		if(userInput == 1){
@@ -88,23 +84,22 @@ public class UserMenu {
 			String status;
 			
 			System.out.print("Content: ");
-			content = getUserInput();
+			content = getUserInputString();
 			while(content == UserMenuReferences.ErrorType.UNRECOGNISED_TOKEN.toString()){
 				System.out.println(UserMenuReferences.Messages.UNRECOGNIZED_TOKEN);
 				System.out.print("Content: ");
-				content = getUserInput();
+				content = getUserInputString();
 			}
 			while(content == UserMenuReferences.ErrorType.NULL_TOKEN.toString()){
 				System.out.println(UserMenuReferences.Messages.NULL_TOKEN);
 				System.out.print("Content: ");
-				content = getUserInput();
+				content = getUserInputString();
 			}
 			
 			System.out.println("Status: ");
 			System.out.println(UserMenuReferences.Menus.STATUS_MENU);
 			limit = UserMenuReferences.Menus.STATUS_MENU.getLimit();
-			userInput = this.getUserInput(limit);
-			if(userInput == -1){userInput = this.getValidUserInput(UserMenuReferences.Menus.STATUS_MENU, limit);}
+			userInput = this.getUserInput(UserMenuReferences.Menus.STATUS_MENU, 1, limit);
 			if(userInput == 1){ // Incomplete
 				status = "Incomplete";
 			}else if(userInput == 2){
@@ -117,8 +112,7 @@ public class UserMenu {
 			System.out.println("Do you want to create specified note?");
 			System.out.println(UserMenuReferences.Menus.CONFIRM_MENU);
 			limit = UserMenuReferences.Menus.CONFIRM_MENU.getLimit();
-			userInput = this.getUserInput(limit);
-			if(userInput == -1){userInput = this.getValidUserInput(UserMenuReferences.Menus.CONFIRM_MENU, limit);}
+			userInput = this.getUserInput(UserMenuReferences.Menus.CONFIRM_MENU, 1, limit);
 			if(userInput == 2){return UserMenuReferences.Messages.CANCEL_MESSAGE.toString();}
 			
 			try{
@@ -141,8 +135,7 @@ public class UserMenu {
 			System.out.println("Do you want to create specified note group?");
 			System.out.println(UserMenuReferences.Menus.CONFIRM_MENU);
 			limit = UserMenuReferences.Menus.CONFIRM_MENU.getLimit();
-			userInput = this.getUserInput(limit);
-			if(userInput == -1){userInput = this.getValidUserInput(UserMenuReferences.Menus.CONFIRM_MENU, limit);}
+			userInput = this.getUserInput(UserMenuReferences.Menus.CONFIRM_MENU, 1, limit);
 			if(userInput == 2){return UserMenuReferences.Messages.CANCEL_MESSAGE.toString();}
 			
 			try{
@@ -165,10 +158,109 @@ public class UserMenu {
 	 * Displays existing note and note groups
 	 * @return operationMessage
 	 */
-	
 	private String goToNotes(){
 		
-		return "zAAAAAAAAAAAAAAAA";
+		//int type = controller.getCurrentType();
+		int type = 1;
+		
+		if(type == 0){
+			//String details = controller.getDetails();
+			String details = "Title: This is title, Content: This is content";
+			System.out.println(details);
+			System.out.println(UserMenuReferences.Menus.NOTE_MENU);
+			int limit = UserMenuReferences.Menus.NOTE_MENU.getLimit();
+			int userInput = getUserInput(UserMenuReferences.Menus.NOTE_MENU, UserMenuReferences.SpecialSelections.EXIT_SIGN.getValue(), limit);
+			if(userInput == 1){
+				return UserMenuReferences.Messages.CHANGE_SUCCESS.toString(); // -> Sil
+				/*
+				if(controller.changetoincomplete){
+					System.out.println(UserMenuReferences.Messages.CHANGE_SUCCESS);
+				}else{
+					System.out.println(UserMenuReferences.Messages.CHANGE_FAIL);
+				}*/
+			}else if (userInput == 2){
+				return UserMenuReferences.Messages.CHANGE_SUCCESS.toString(); // -> Sil
+				/*
+				if(controller.changetocomplete){
+					System.out.println(UserMenuReferences.Messages.CHANGE_SUCCESS);
+				}else{
+					System.out.println(UserMenuReferences.Messages.CHANGE_FAIL);
+				}*/
+			}else if (userInput == 3){
+				return UserMenuReferences.Messages.CHANGE_SUCCESS.toString(); // -> Sil
+				/*
+				if(controller.changetocancelled){
+					System.out.println(UserMenuReferences.Messages.CHANGE_SUCCESS);
+				}else{
+					System.out.println(UserMenuReferences.Messages.CHANGE_FAIL);
+				}*/
+			}else if(userInput == 4){
+				return UserMenuReferences.Messages.CHANGE_SUCCESS.toString(); // -> Sil
+				/*
+				if(controller.changetopermanent){
+					System.out.println(UserMenuReferences.Messages.CHANGE_SUCCESS);
+				}else{
+					System.out.println(UserMenuReferences.Messages.CHANGE_FAIL);
+				}*/
+			} else if(userInput == UserMenuReferences.SpecialSelections.BACK_SIGN.getValue()){
+				/*
+				if(controller.goback == false){
+					System.out.println(UserMenuReferences.Messages.BACK_FAIL);
+				}*/
+				return this.goToNotes();
+			} else if(userInput == UserMenuReferences.SpecialSelections.EXIT_SIGN.getValue()){
+				if(this.cancel()){
+					return UserMenuReferences.Messages.CANCEL_MESSAGE.toString();
+				}
+				return this.goToNotes();
+			}
+			else{return UserMenuReferences.Messages.UNRECOGNIZED_ERROR.toString();}
+		} else if (type == 1){
+			//String currentMenu = controller.getCurrentMenu();
+			String currentMenu = "";
+			if(currentMenu == null || currentMenu == ""){
+				System.out.println(UserMenuReferences.Messages.EMPTY_GROUP);
+			}
+			currentMenu += UserMenuReferences.Menus.NOTEGROUP_MENU;
+			System.out.println(currentMenu);
+			int userInput = getUserInputInteger();
+			if(userInput == UserMenuReferences.SpecialSelections.CREATE_SIGN.getValue()){
+				String resultMessage = this.create();
+				if(isClearActive){this.clear();}
+				if(resultMessage != null || resultMessage != ""){
+					System.out.println(resultMessage);
+				}
+				this.goToNotes();
+			} else if(userInput == UserMenuReferences.SpecialSelections.BACK_SIGN.getValue()){
+				if(isClearActive){this.clear();}
+				return this.goToNotes();
+				/*
+				if(controller.goback()){
+					return this.goToNotes();
+				}else{
+					return UserMenuReferences.Messages.BACK_FAIL.toString();
+				}*/
+			} else if(userInput == UserMenuReferences.SpecialSelections.EXIT_SIGN.getValue()){
+				System.out.println("Do you want to exit?");
+				System.out.println(UserMenuReferences.Menus.CONFIRM_MENU);
+				int limit =  UserMenuReferences.Menus.CONFIRM_MENU.getLimit();
+				userInput = getUserInput(UserMenuReferences.Menus.CONFIRM_MENU, 1, limit);
+				if(userInput == 1){return UserMenuReferences.Messages.CHANGE_SUCCESS.toString();}
+				else{return this.goToNotes();}
+			}
+			
+			/*
+			if(controller.find(userInput) == false){
+				System.out.println(UserMenuReferences.Messages.INCORRECT_INPUT);
+			}*/
+			
+			return this.goToNotes();
+			
+			
+		} else{
+			return UserMenuReferences.Messages.UNRECOGNIZED_ERROR.toString();
+		}
+		
 		
 	} 
 	
@@ -217,8 +309,7 @@ public class UserMenu {
 			System.out.println("Do you want to exit?");
 			System.out.println(UserMenuReferences.Menus.CONFIRM_MENU);
 			int limit = UserMenuReferences.Menus.CONFIRM_MENU.getLimit();
-			int userInput = this.getUserInput(limit);
-			if(userInput == -1){userInput = this.getValidUserInput(UserMenuReferences.Menus.CONFIRM_MENU, limit);}
+			int userInput = this.getUserInput(UserMenuReferences.Menus.CONFIRM_MENU, 1, limit);
 			if(userInput == 1){
 				return UserMenuReferences.Messages.EXIT_MESSAGE.toString();
 			}else if(userInput == 2){
@@ -240,24 +331,20 @@ public class UserMenu {
 		// Main Menu Display
 		System.out.println(UserMenuReferences.Menus.MAIN_MENU);
 		int limit = UserMenuReferences.Menus.MAIN_MENU.getLimit();
-		int userInput = getUserInput(limit);
-		if(userInput == -1){userInput = this.getValidUserInput(UserMenuReferences.Menus.MAIN_MENU, limit);}
+		int userInput = getUserInput(UserMenuReferences.Menus.MAIN_MENU, 1, limit);
 		
 		// Submenu Display
 		switch(userInput){
 			case 1:
-				message = this.create();
-				break;
-			case 2:
 				message = this.goToNotes();
 				break;
-			case 3:
+			case 2:
 				message = this.exportJSON();
 				break;
-			case 4:
+			case 3:
 				message = this.reset();
 				break;
-			case 5:
+			case 4:
 				message = this.exit();
 				break;
 			default:
@@ -276,22 +363,63 @@ public class UserMenu {
 		this.run();
 	}
 	
+	
 	/**
-	 * Gets integer user input to be used for selection
+	 * Gets integer user input to be used for selection by checking validity of the selection
 	 * @param limit
 	 * @return userSelection
 	 */
-	private int getUserInput(int limit){
+	private int getUserInput(UserMenuReferences.Menus menu ,int start, int end){
 		String input = scanner.nextLine();
 		try{
-			int inputInt = Integer.valueOf(input);
-			if(limit == 0){
-				return inputInt;
+			int inputInt;
+			if(input.equals("+")){ // Create
+				inputInt = UserMenuReferences.SpecialSelections.CREATE_SIGN.getValue();
+			} 
+			else if(input.equals("<")){
+				inputInt =  UserMenuReferences.SpecialSelections.BACK_SIGN.getValue();
+			} else if (input.equals("-")){
+				inputInt = UserMenuReferences.SpecialSelections.EXIT_SIGN.getValue();
+			}else{
+				try{
+					inputInt = Integer.valueOf(input);
+				}
+				catch(Exception e){
+					System.out.println(UserMenuReferences.Messages.INCORRECT_INPUT);
+					System.out.println(menu);
+					return getUserInput(menu, start, end);
+				}
 			}
-			if(inputInt < 1 || inputInt > limit){
-				return -1;
+			
+			if(inputInt >= start || inputInt <= end || inputInt != 0){
+				return inputInt;
+			}else{
+				System.out.println(UserMenuReferences.Messages.INCORRECT_INPUT);
+				System.out.println(menu);
+				return getUserInput(menu, start, end);
+			}
+		}catch(Exception e){
+			return -1;
+		}
+	}
+	
+	
+	private int getUserInputInteger(){
+		try{
+			String input = scanner.nextLine();
+			int inputInt;
+			if(input.equals("+")){ // Create
+				inputInt = UserMenuReferences.SpecialSelections.CREATE_SIGN.getValue();
+			} 
+			else if(input.equals("<")){
+				inputInt =  UserMenuReferences.SpecialSelections.BACK_SIGN.getValue();
+			} else if (input.equals("-")){
+				inputInt = UserMenuReferences.SpecialSelections.EXIT_SIGN.getValue();
+			} else{
+				return Integer.valueOf(input);
 			}
 			return inputInt;
+			
 		}catch(Exception e){
 			return -1;
 		}
@@ -301,7 +429,7 @@ public class UserMenu {
 	 * Gets string user input for any purpose
 	 * @return userInput
 	 */
-	private String getUserInput(){
+	private String getUserInputString(){
 		try{
 			String userInput = scanner.nextLine();
 			if(userInput.trim().isEmpty()){
@@ -313,23 +441,6 @@ public class UserMenu {
 		}
 	}
 	
-	
-	/**
-	 * Converts invalid user input to valid user input by asking user a new input for specified menu
-	 * @param displayID
-	 * @return
-	 */
-	private int getValidUserInput(UserMenuReferences.Menus menu, int limit){
-		int userInput = -1;
-		while(userInput == -1){
-			System.out.println(UserMenuReferences.Messages.INCORRECT_INPUT);
-			System.out.println(menu);
-			userInput = getUserInput(limit);
-		}
-		return userInput;
-	}
-	
-
 	
 	
 }
