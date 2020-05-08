@@ -56,7 +56,7 @@ public class UserMenuReferences{
 		"System Message::Reset is Successfull!",
 		"System Message::Operation Cancelled!",
 		"System Message::Program Terminated!",
-		"System Message::Error | System cannot go back!",
+		"System Message::You are in the main group, cannot go back anymore!",
 		"System Message::Error | This transmition is invalid for current state!",
 		"System Message::Transmition is Successfull!",
 		"System Message::This note group is empty!"};
