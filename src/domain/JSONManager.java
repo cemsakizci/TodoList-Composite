@@ -45,7 +45,7 @@ public class JSONManager {
 			note.put("Note-Title", rootNote.getTitle());
 			try {
 				note.put("Note-Content", rootNote.getContent());
-				note.put("Note-Date", rootNote.getDate());
+				note.put("Note-Date", rootNote.getDate().toString());
 				note.put("Note-State", rootNote.getState().toString());
 			} catch(Exception error) {
 				//this part will not be executed as the given 3 methods are defined for a note
