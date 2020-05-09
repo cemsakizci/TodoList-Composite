@@ -57,8 +57,8 @@ public class UserMenuReferences{
 		"System Message::Operation Cancelled!",
 		"System Message::Program Terminated!",
 		"System Message::You are in the main group, cannot go back anymore!",
-		"System Message::Error | This transmition is invalid for current state!",
-		"System Message::Transmition is Successfull!",
+		"System Message::Error | This transition is invalid for current state!",
+		"System Message::Transition is Successfull!",
 		"System Message::This note group is empty!"};
 		
 		@Override
