@@ -22,22 +22,22 @@ private int uniqueIdTracer; // To assign a unique id to a NoteComponent.
 	 * Create a new Note. 
 	 * @return Note with the specified title, content, state. 
 	 */
-	public Note createNote(String title, String content, INoteState state) {
+	public Note createNote(String title, String content, NoteComponent parent, INoteState state) {
 	
 		setUniqueIdTracer(getUniqueIdTracer() + 1);
 		
-		return new Note(getUniqueIdTracer(), title, content, state, new Date());
+		return new Note(getUniqueIdTracer(), title, parent, content, state, new Date());
 	}
 	
 	/**
 	 * Create a new NoteGroup.
 	 * @return NoteGroup with the specified title.
 	 */
-	public NoteGroup createNoteGroup(String title) {
+	public NoteGroup createNoteGroup(String title, NoteComponent parent) {
 		
 		setUniqueIdTracer(getUniqueIdTracer() + 1);
 		
-		return new NoteGroup(getUniqueIdTracer(), title);
+		return new NoteGroup(getUniqueIdTracer(), title, parent);
 	}
 	
 }

@@ -4,19 +4,15 @@ import java.util.ArrayList;
 
 public class MenuController {
 	private NoteComponent currentComponent;
-	private NoteComponent rootComponent;
-	private NoteComponent previousComponent;	
+	private NoteComponent rootComponent;	
 	private JSONManager jsonManager;
 	private NoteComponentGenerator noteComponentGenerator;
-	private int childCounter;
 	
 	public MenuController() {
-		this.childCounter = 0;
 		this.jsonManager = new JSONManager();
 		this.noteComponentGenerator = new NoteComponentGenerator();
-		this.rootComponent = this.noteComponentGenerator.createNoteGroup("MyNotes");
+		this.rootComponent = this.noteComponentGenerator.createNoteGroup("MyNotes", null);
 		this.currentComponent = this.rootComponent;
-		this.previousComponent = this.rootComponent;
 		
 	}
 	
@@ -28,9 +24,9 @@ public class MenuController {
 	public boolean createNote(String title, String content, String state) {
 		try {
 			if (state.equals("Incomplete")) {
-				this.currentComponent.addNoteComponent(this.noteComponentGenerator.createNote(title, content, new IncompleteState()));
+				this.currentComponent.addNoteComponent(this.noteComponentGenerator.createNote(title, content, this.currentComponent, new IncompleteState()));
 			} else if (state.equals("Permanent")){
-				this.currentComponent.addNoteComponent(this.noteComponentGenerator.createNote(title, content, new PermanentState()));
+				this.currentComponent.addNoteComponent(this.noteComponentGenerator.createNote(title, content, this.currentComponent, new PermanentState()));
 			}
 			else {
 				return false;
@@ -57,7 +53,7 @@ public class MenuController {
 	}
 	
 	public boolean createNoteGroup(String title) throws OperationIsNotAllowedException {
-		this.currentComponent.addNoteComponent(noteComponentGenerator.createNoteGroup(title));
+		this.currentComponent.addNoteComponent(noteComponentGenerator.createNoteGroup(title, this.currentComponent));
 		return true;
 	}
 	
@@ -84,7 +80,6 @@ public class MenuController {
 		try{
 			NoteComponent newComponent = this.currentComponent.findChild(id); 
 			if(newComponent != null) {
-				this.previousComponent = this.currentComponent;
 				this.currentComponent = newComponent;
 				return true;
 			} else {
@@ -96,12 +91,10 @@ public class MenuController {
 	}
 	
 	public boolean goToParent() {
-		if(this.currentComponent == this.rootComponent) {
+		if(this.currentComponent.getParent() == null) {
 			return false;
 		}else {
-			NoteComponent temp = this.previousComponent;
-			this.previousComponent = this.currentComponent;
-			this.currentComponent = temp;
+			this.currentComponent = this.currentComponent.getParent();
 			return true;
 		}
 	}
@@ -113,7 +106,6 @@ public class MenuController {
 	public boolean goToRoot(){
 		try{
 			this.currentComponent = this.rootComponent;
-			this.previousComponent = this.currentComponent;
 			return true;
 		}catch(Exception e){
 			return false;
