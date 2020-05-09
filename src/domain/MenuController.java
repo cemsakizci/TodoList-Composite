@@ -52,8 +52,12 @@ public class MenuController {
 		return true;
 	}
 	
-	public boolean createNoteGroup(String title) throws OperationIsNotAllowedException {
-		this.currentComponent.addNoteComponent(noteComponentGenerator.createNoteGroup(title, this.currentComponent));
+	public boolean createNoteGroup(String title) {
+		try {
+			this.currentComponent.addNoteComponent(noteComponentGenerator.createNoteGroup(title, this.currentComponent));
+		}catch(Exception e) {
+			return false;
+		}
 		return true;
 	}
 	
@@ -66,17 +70,12 @@ public class MenuController {
 		}
 	}
 	
-	public String getCurrentNoteGroupDetails(){
+	public String getCurrentNoteDetails(){
 		
 		return this.currentComponent.getNodeDetails();
 	}
-	
-	public String getCurrentNoteLeafDetails(){
-		
-		return this.currentComponent.getNodeDetails();
-	}
-		
-	public boolean goToNote(int id) throws OperationIsNotAllowedException {
+			
+	public boolean goToNote(int id) {
 		try{
 			NoteComponent newComponent = this.currentComponent.findChild(id); 
 			if(newComponent != null) {

@@ -167,7 +167,7 @@ public class UserMenu {
 		int type = controller.getCurrentNoteType();
 		
 		if(type == 1){ // note
-			String details = controller.getCurrentNoteLeafDetails();
+			String details = controller.getCurrentNoteDetails();
 			System.out.println(details);
 			System.out.println(UserMenuReferences.Menus.NOTE_MENU);
 			int limit = UserMenuReferences.Menus.NOTE_MENU.getLimit();
@@ -213,7 +213,7 @@ public class UserMenu {
 			}
 			else{return UserMenuReferences.Messages.UNRECOGNIZED_ERROR.toString();}
 		} else if (type == 0){ // note group
-			String currentMenu = controller.getCurrentNoteGroupDetails();
+			String currentMenu = controller.getCurrentNoteDetails();
 			if(currentMenu == null || currentMenu == ""){
 				System.out.println(UserMenuReferences.Messages.EMPTY_GROUP);
 			}
