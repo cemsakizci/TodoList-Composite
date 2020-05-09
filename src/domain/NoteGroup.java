@@ -6,8 +6,8 @@ import java.util.Date;
 public class NoteGroup extends NoteComponent {
 	private ArrayList<NoteComponent> noteComponentList;
 	
-	public NoteGroup(int id, String title) {
-		super(id, title);
+	public NoteGroup(int id, String title, NoteComponent parent) {
+		super(id, title, parent);
 		this.noteComponentList = new ArrayList<NoteComponent>();
 	}
 	

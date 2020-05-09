@@ -6,13 +6,17 @@ import java.util.Date;
 public abstract class NoteComponent {
 	private int id;
 	private String title;
+	private NoteComponent parent;
 	
 	public NoteComponent() {}
 	
-	public NoteComponent(int id, String title) {
+	public NoteComponent(int id, String title, NoteComponent parent) {
 		setId(id);
 		setTitle(title);
+		setParent(parent);
 	}
+	
+	
 	
 	/**
 	 * return the children of a component
@@ -76,5 +80,13 @@ public abstract class NoteComponent {
 	
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public void setParent(NoteComponent parent){
+		this.parent = parent;
+	}
+	
+	public NoteComponent getParent(){
+		return this.parent;
 	}
 }

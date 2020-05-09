@@ -9,8 +9,8 @@ public class Note extends NoteComponent {
 	
 	public Note() {}
 	
-	public Note(int id, String title, String content, INoteState state, Date date) {
-		super(id, title);
+	public Note(int id, String title, NoteComponent parent, String content, INoteState state, Date date) {
+		super(id, title, parent);
 		setContent(content);
 		setState(state);
 		setDate(date);
