@@ -3,8 +3,8 @@ package domain;
 public class PermanentState implements INoteState {
 
 	@Override
-	public void changeToIncomplete(Note note) {
-		System.out.println("The note cannot be changed from Permanent to Incomplete state");
+	public void changeToIncomplete(Note note) throws StateTransitionException {
+		throw new StateTransitionException("The note cannot be changed from Permanent to Incomplete state");
 	}
 
 	@Override
@@ -13,13 +13,13 @@ public class PermanentState implements INoteState {
 	}
 
 	@Override
-	public void changeToPermanent(Note note) {
-		System.out.println("Already in Permanent state");
+	public void changeToPermanent(Note note) throws StateTransitionException {
+		throw new StateTransitionException("Already in Permanent state");
 	}
 
 	@Override
-	public void changeToCompleted(Note note) {
-		System.out.println("The note cannot be changed from Permanent to Completed state");
+	public void changeToCompleted(Note note) throws StateTransitionException {
+		throw new StateTransitionException("The note cannot be changed from Permanent to Completed state");
 	}
 	
 	public String toString() {
