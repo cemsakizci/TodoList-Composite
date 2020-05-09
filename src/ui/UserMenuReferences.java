@@ -90,8 +90,8 @@ public class UserMenuReferences{
 				"1. Incomplete\n"
 				+ "2. Permanent",
 						
-				"1. Confirm\n"
-				+ "2. Cancel",
+				"1. Yes\n"
+				+ "2. No",
 				
 				"1. Change to Incomplete\n"
 				+ "2. Change to Completed\n"
