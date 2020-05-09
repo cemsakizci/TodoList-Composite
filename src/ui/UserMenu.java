@@ -217,7 +217,7 @@ public class UserMenu {
 			if(currentMenu == null || currentMenu == ""){
 				System.out.println(UserMenuReferences.Messages.EMPTY_GROUP);
 			}
-			currentMenu += UserMenuReferences.Menus.NOTEGROUP_MENU;
+			currentMenu += UserMenuReferences.Menus.NOTEGROUP_MENU + "\n(Type id number to open a note component)";
 			System.out.println(currentMenu);
 			int userInput = getUserInputInteger();
 			if(userInput == UserMenuReferences.SpecialSelections.CREATE_SIGN.getValue()){
