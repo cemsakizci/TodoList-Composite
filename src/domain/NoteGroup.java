@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class NoteGroup extends NoteComponent {
 	private ArrayList<NoteComponent> noteComponentList;
@@ -40,6 +41,18 @@ public class NoteGroup extends NoteComponent {
 	
 	public void deleteChildren() {
 		this.noteComponentList.clear();
+	}
+	
+	public String getContent() throws OperationIsNotAllowedException {
+		throw new OperationIsNotAllowedException("Group does note have a content");
+	}
+	
+	public Date getDate() throws OperationIsNotAllowedException {
+		throw new OperationIsNotAllowedException("Group does note have a date");
+	}
+	
+	public INoteState getState() throws OperationIsNotAllowedException {
+		throw new OperationIsNotAllowedException("Group does note have a state");
 	}
 	
 	public void changeToIncomplete() throws OperationIsNotAllowedException {

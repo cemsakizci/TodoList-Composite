@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Date;
 
-public class NoteComponentGenerator {
+public class NoteComponentGenerator implements INoteComponentGenerator{
 
 private int uniqueIdTracer; // To assign a unique id to a NoteComponent. 
 	
@@ -23,7 +23,6 @@ private int uniqueIdTracer; // To assign a unique id to a NoteComponent.
 	 * @return Note with the specified title, content, state. 
 	 */
 	public Note createNote(String title, String content, NoteComponent parent, INoteState state) {
-	
 		setUniqueIdTracer(getUniqueIdTracer() + 1);
 		
 		return new Note(getUniqueIdTracer(), title, parent, content, state, new Date());

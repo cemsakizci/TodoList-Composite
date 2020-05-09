@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class JSONManager {
@@ -29,18 +30,27 @@ public class JSONManager {
 		try {
 			//if not throws error means its note group
 			ArrayList<NoteComponent> noteChildren = rootNote.getChildren();
+			
+			JSONArray childrenNotes = new JSONArray();
 			for(NoteComponent childNote : noteChildren) {
 				JSONObject childNoteJSONObject = recursiveJSONExport(childNote);
-				note.put(childNote.getTitle(), childNoteJSONObject);
+				childrenNotes.add(childNoteJSONObject);
 			}
+			note.put(rootNote.getTitle(), childrenNotes);
 			
 		} catch(Exception e) {
-			Note noteLeaf = (Note) rootNote;
 			//Exception means we are in leaf note
 			//This is the base of the recursive function
-			note.put("Note-Title", noteLeaf.getTitle());
-			note.put("Note-Content", noteLeaf.getContent());
-			note.put("Note-Date", noteLeaf.getDate());
+			note.put("Note-ID", rootNote.getId());
+			note.put("Note-Title", rootNote.getTitle());
+			try {
+				note.put("Note-Content", rootNote.getContent());
+				note.put("Note-Date", rootNote.getDate());
+				note.put("Note-State", rootNote.getState().toString());
+			} catch(Exception error) {
+				//this part will not be executed as the given 3 methods are defined for a note
+			}
+			
 		}
 		
 		return note;

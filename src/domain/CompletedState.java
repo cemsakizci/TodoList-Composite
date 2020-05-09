@@ -22,4 +22,8 @@ public class CompletedState implements INoteState {
 		throw new StateTransitionException("Already in Completed state");
 	}
 	
+	public String toString() {
+		return "Completed";
+	}
+	
 }
