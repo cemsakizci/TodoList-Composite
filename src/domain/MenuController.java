@@ -103,9 +103,13 @@ public class MenuController implements IMenuController{
 			case 2:
 				this.currentComponent.changeToCancelled();
 				break;
-			default:
+			case 3:
 				this.currentComponent.changeToPermanent();
+				break;
+			default:
+				return false;
 			}
+			
 		} catch (Exception e) {
 			return false;
 		}
