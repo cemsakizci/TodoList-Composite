@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
-
-public class MenuController {
+public class MenuController implements IMenuController{
 	private NoteComponent currentComponent;
 	private NoteComponent rootComponent;	
 	private JSONManager jsonManager;
@@ -14,12 +12,7 @@ public class MenuController {
 		this.rootComponent = this.noteComponentGenerator.createNoteGroup("MyNotes", null);
 		this.currentComponent = this.rootComponent;
 		
-	}
-	
-	public NoteComponent getCurrentComponent() {
-		return this.currentComponent;
-	}
-	
+	}	
 	
 	public boolean createNote(String title, String content, String state) {
 		try {
